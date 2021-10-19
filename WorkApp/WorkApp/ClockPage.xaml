@@ -1,10 +1,41 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:sys="clr-namespace:System;assembly=netstandard"
              x:Class="WorkApp.ClockPage">
     <ContentPage.Content>
         <StackLayout x:Name="stackLayout"  Spacing="8">
-              
+            <Label x:Name="datePickerText" Text="Выберите дату"  Margin="20,5,20,5" />
+            <DatePicker x:Name="datePicker" VerticalOptions="CenterAndExpand" Date="{x:Static sys:DateTime.Now}"   DateSelected="DateSelectedHandler"  
+                         Margin="20,5,20,5" Style = "{StaticResource Key=ValidInputStyle}">
+                <DatePicker.Format>yyyy-MM-dd</DatePicker.Format>
+                <DatePicker.MinimumDate>
+                    <sys:DateTime x:FactoryMethod="Parse">
+                        <x:Arguments>
+                            <x:String>Jan 1 2000</x:String>
+                        </x:Arguments>
+                    </sys:DateTime>
+                </DatePicker.MinimumDate>
+                <DatePicker.MaximumDate>
+                    <sys:DateTime x:FactoryMethod="Parse">
+                        <x:Arguments>
+                            <x:String>Dec 31 2050</x:String>
+                        </x:Arguments>
+                    </sys:DateTime>
+                </DatePicker.MaximumDate>
+            </DatePicker>
+            <Label x:Name="timePickerText" Text="Выберите время"  Margin="20,5,20,5" />
+            <TimePicker x:Name="timePicker" Time="00:00:00" PropertyChanged="TimeChangedHandler"  Margin="20,5,20,5" Style = "{StaticResource Key=ValidInputStyle}"></TimePicker>
+            <Label x:Name="sliderText" Text="Громкость сигнала: 15 "   Margin="20,5,20,5" />
+            <Slider x:Name="sliderVolume" Minimum="0" Maximum="50" Value="15" ValueChanged="VolumeChangedHandler"
+            MinimumTrackColor="Color.DodgerBlue" MaximumTrackColor="Gray" ThumbColor="DodgerBlue" />
+            <Label  Text="Каждый день"  Margin="20,5,20,5" />
+            <Switch x:Name= "switchEveryDay" IsToggled="False" VerticalOptions="CenterAndExpand"
+             HorizontalOptions="Center" ThumbColor = "DodgerBlue" OnColor = "LightSteelBlue" />
+            <Button x:Name="buttonSave" Text="Сохранить" Clicked="Save_Click"  
+             FontSize = "Medium" HorizontalOptions ="Center" VerticalOptions="CenterAndExpand"    />
+            <Button x:Name="buttonReturn" Text="На главную" Clicked="Return_Click" 
+             FontSize = "Medium" HorizontalOptions ="Center" VerticalOptions="CenterAndExpand"    />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
